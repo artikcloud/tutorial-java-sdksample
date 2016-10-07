@@ -120,6 +120,26 @@ try {
     System.out.println(result);
 ```
 
+We retrieve our message.  Simplest to use is the synchronous api call:  messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence).
+
+```java
+//synchronous call, or alternatively use .getLastNormalizedMessagesAsync()
+//messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence)
+
+//@param count <int> - max entries to return
+//@param sdids <string> - containing list of device ids of interest, comma delimited
+//@param fieldPresense <string> - retrieval only if device has named field
+   NormalizedMessagesEnvelope normalizedMessagesEnvelope =
+     messageApiInstance.getLastNormalizedMessages(1, Config.DEVICEID, null);
+
+   //each message is wrapped in NormalizedMessage object.  
+   //iterate through each messsage and print out some of its values
+   List<NormalizedMessage> messages = normalizedMessagesEnvelope.getData();
+   for(NormalizedMessage message: messages) {
+    System.out.println(message);
+   }
+```
+
 Check out the Messages REST API: 
   - [POST a message REST call](https://developer.artik.cloud/documentation/api-reference/rest-api.html#post-a-message-or-action).  
   - [Get the last message REST call](https://developer.artik.cloud/documentation/api-reference/rest-api.html#get-last-normalized-messages)
@@ -149,7 +169,7 @@ To create and manage your services and devices on ARTIK Cloud, visit the Develop
 License and Copyright
 ---------------------
 
-Licensed under the Apache License. See [LICENSE](https://github.com/artikcloud/tutorial-python-sdksample/blob/master/LICENSE).
+Licensed under the Apache License. See [LICENSE](https://github.com/artikcloud/tutorial-java-sdksample/blob/master/LICENSE).
 
 Copyright (c) 2016 Samsung Electronics Co., Ltd.
 
