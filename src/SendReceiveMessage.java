@@ -2,6 +2,8 @@ import cloud.artik.client.*;
 import cloud.artik.client.auth.*;
 import cloud.artik.model.MessageAction;
 import cloud.artik.model.MessageIDEnvelope;
+import cloud.artik.model.NormalizedMessage;
+import cloud.artik.model.NormalizedMessagesEnvelope;
 import cloud.artik.api.MessagesApi;
 
 import java.util.*;
@@ -60,12 +62,22 @@ public class SendReceiveMessage {
         
         // Now let's retrieve our data. 
         try {
+        	
         	//synchronous call, or alternatively use .getLastNormalizedMessagesAsync()
         	//messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence)
+        	
         	//@param count <int> - max entries to return
         	//@param sdids <string> - containing list of device ids of interest, comma delimited
         	//@param fieldPresense <string> - retrieval only if device has named field
-            messageApiInstance.getLastNormalizedMessages(1, Config.DEVICEID, null);
+            NormalizedMessagesEnvelope normalizedMessagesEnvelope =
+            		messageApiInstance.getLastNormalizedMessages(1, Config.DEVICEID, null);
+            
+            //each message is wrapped in NormalizedMessage object.  
+            //iterate through each messsage and print out some of its values
+            List<NormalizedMessage> messages = normalizedMessagesEnvelope.getData();
+            for(NormalizedMessage message: messages) {
+            	System.out.println(message);
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling MessagesApi#getLastNormalizedMessages");
             e.printStackTrace();
@@ -73,3 +85,4 @@ public class SendReceiveMessage {
         
     }
 }
+
