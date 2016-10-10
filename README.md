@@ -17,9 +17,8 @@ Connect Demo Fire Sensor in ARTIK Cloud:
 
 Add the /src files to your project using your favorite IDE:
 
-  -  Build SDK with MVN - [Instructions](https://github.com/artikcloud/artikcloud-java)
+  -  Build ArtikCloud SDK for java with MVN - [Instructions](https://github.com/artikcloud/artikcloud-java)
 alternatively:
-  -  TODO: Add jars available to your project: all jars in "libs" directory provided for convenience
 
 Prepare Config.java class:
 
@@ -31,7 +30,7 @@ Run the SendReceiveMessage.java application.
 
 This will send a random temperature value to the sample sensor and also retrieve the last message it sent.
 
-MessageIDEnvelope after sending an messaage.
+MessageIDEnvelope after sending an messaage which will make 2 api calls.   It will send a random temperature value to your device, then a 2nd api call to retrieve the data from ARTIK Cloud.
 ```
 //response after sending message
 class MessageIDEnvelope {
@@ -65,7 +64,7 @@ class NormalizedMessage {
 Take a closer look at the following files:
 * /src/SendReceiveMessage.java 
 
-Import the artikcloud package:
+Import the artikcloud package and needed models:
 
 ```java
 import cloud.artik.client.*;
@@ -80,8 +79,7 @@ import cloud.artik.api.MessagesApi;
 import config.Config;
 ```
 
-Here we setup the client to make your ARTIK Cloud API calls.
-Here we use the device token for credentials that you configured in your Config.java file.
+Set your client credentials:
 
 ```java
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -120,20 +118,11 @@ try {
     System.out.println(result);
 ```
 
-We retrieve our message.  Simplest to use is the synchronous api call:  messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence).
+API call to get message for the device: 
 
 ```java
-//synchronous call, or alternatively use .getLastNormalizedMessagesAsync()
-//messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence)
-
-//@param count <int> - max entries to return
-//@param sdids <string> - containing list of device ids of interest, comma delimited
-//@param fieldPresense <string> - retrieval only if device has named field
    NormalizedMessagesEnvelope normalizedMessagesEnvelope =
      messageApiInstance.getLastNormalizedMessages(1, Config.DEVICEID, null);
-
-   //each message is wrapped in NormalizedMessage object.  
-   //iterate through each messsage and print out some of its values
    List<NormalizedMessage> messages = normalizedMessagesEnvelope.getData();
    for(NormalizedMessage message: messages) {
     System.out.println(message);
