@@ -1,37 +1,29 @@
-# ARTIKCLOUD tutorial-java-sdksample
-artikcloud sdk starter for java
+# ARTIK Cloud Java SDK starter code
 
-The tutorial uses the [ARTIK Cloud Java SDK](https://github.com/artikcloud/artikcloud-java).
+This sample code sends and gets a message to and from ARTIK Cloud. It uses the [ARTIK Cloud Java/Android SDK](https://github.com/artikcloud/artikcloud-java) to make REST API calls.
 
 ### Prerequisites
-* java 7,8
-* artikcloud-java sdk (version 2.0.3)
-* mvn (for building sdk)
+* Java 7,8
+* ARTIK Cloud Java/Android SDK (version 2.0.3)
 
 ### Setup / Installation:
 
-Connect Demo Fire Sensor in ARTIK Cloud:
  1. Sign into [My ARTIK Cloud](https://artik.cloud/)
  2. On the device dashboard, click to connect a new device. Select the Demo Fire Sensor (from cloud.artik.sample.demofiresensor) and name your sensor SampleFireSensor (or any name you'd like).
- 3. Go to Settings icon for the device you just added. Get the **device ID** and **device token**. If the token does not already exist, click "GENERATE DEVICE TOKEN…" to get one.
-
-Add the /src files to your project using your favorite IDE:
-
-  -  Build ArtikCloud SDK for java with MVN - [Instructions](https://github.com/artikcloud/artikcloud-java)
-alternatively:
-
-Prepare Config.java class:
-
-Prepare source files. Rename **TemplateConfig.java** to **Config.java** in /src/config package.  Then copy the device ID and device token obtained before into your Config.java
+ 3. Click the Settings icon of the device you just added. Get the **device ID** and **device token**. If the token does not already exist, click "GENERATE DEVICE TOKEN…" to get one.
+ 4. Build ARTIK Cloud Java SDK with Maven or get the SDK jar file from maven central. See the [instructions](https://github.com/artikcloud/artikcloud-java) here. Be sure to use version 2.0.3.
+ 4. Add the /src files to your project using your favorite IDE.
+ 5. Prepare source files. Rename **TemplateConfig.java** to **Config.java** under /src. Then copy the device ID and device token obtained before into your Config.java.
 
 ## Run the code
  
 Run the SendReceiveMessage.java application.
 
-This will send a random temperature value to the sample sensor and also retrieve the last message it sent.
+It sends a random temperature value to ARTIK Cloud on behalf of the device, then retrieves the last message it sent.
 
-MessageIDEnvelope after sending an messaage which will make 2 api calls.   It will send a random temperature value to your device, then a 2nd api call to retrieve the data from ARTIK Cloud.
-```
+If sending goes well, you receive a response with a message id (mid). ARTIK Cloud uses this response to acknowledge the receipt of the message as shown below.
+
+```java
 //response after sending message
 class MessageIDEnvelope {
     data: class MessageID {
@@ -40,12 +32,9 @@ class MessageIDEnvelope {
 }
 ```
 
-If everything goes well, you will receive a response with a message id (mid). ARTIK Cloud uses this response to acknowledge the receipt of the message as shown above.
+After sending, retrieve the last message with a synchronous call. Below is the response. It has a 'temp' value that was sent earlier.
 
-**Get a message**
-We immediately retrieve a message with a synchronous call.
-Below is the response. It has a 'temp' value that was sent earlier.
-```
+```java
 //response after getting last message
 class NormalizedMessage {
     cts: 1475839013635
@@ -57,10 +46,10 @@ class NormalizedMessage {
     mv: 1
     data: {temp=199.0}
 }
-
 ```
 
 ## Peek into the implementation
+
 Take a closer look at the following files:
 * /src/SendReceiveMessage.java 
 
@@ -137,12 +126,14 @@ Check out the Messages REST API:
 
 Have you visited ARTIK Cloud [data visualization tool](https://artik.cloud/my/data)?
 
-Select your device from the charts to view your device data in realtime.   Try running the ./app-send-message.py multiple times in your terminal to send a few random values.  Here's a screenshot:
+Select your device from the charts to view your device data in realtime. Try running the application multiple times in your terminal to send a few random values.  Here's a screenshot:
 
 ![GitHub Logo](https://github.com/artikcloud/tutorial-python-sdksample/blob/master/img/screenshot-firesensor-datachart.png)
 
 ## More examples
- - More [ARTIK Cloud Java SDK Documentation] (https://github.com/artikcloud/artikcloud-java)
+
+ - [ARTIK Cloud Java/Android SDK documentation] (https://github.com/artikcloud/artikcloud-java)
+ - [Your first Android app tutorial](https://developer.artik.cloud/documentation/tutorials/your-first-android-app.html)
 
 More about ARTIK Cloud
 ---------------
@@ -158,7 +149,7 @@ To create and manage your services and devices on ARTIK Cloud, visit the Develop
 License and Copyright
 ---------------------
 
-Licensed under the Apache License. See [LICENSE](https://github.com/artikcloud/tutorial-java-sdksample/blob/master/LICENSE).
+Licensed under the Apache License. See [LICENSE](LICENSE).
 
 Copyright (c) 2016 Samsung Electronics Co., Ltd.
 
