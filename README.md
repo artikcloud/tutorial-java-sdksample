@@ -13,7 +13,7 @@ This sample code sends and gets a message to and from ARTIK Cloud. It uses the [
  3. Click the Settings icon of the device you just added. Get the **device ID** and **device token**. If the token does not already exist, click "GENERATE DEVICE TOKEN…" to get one.
  4. Build ARTIK Cloud Java SDK with Maven or get the SDK jar file from maven central. See the [instructions](https://github.com/artikcloud/artikcloud-java) here. Be sure to use version 2.0.3.
  4. Add the /src files to your project using your favorite IDE.
- 5. Prepare source files. Rename **TemplateConfig.java** to **Config.java** under /src. Then copy the device ID and device token obtained before into your Config.java.
+ 5. In your Config.java file, replace with your "device id" and "device token" obtained.
 
 ## Run the code
  

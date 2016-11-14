@@ -1,7 +1,8 @@
 
 //rename this class to Config
-public class TemplateConfig {
+public class Config {
 	
+	//keep this as is - required for client
 	public static final String ARTIKCLOUD_OAUTH = "artikcloud_oauth";
 	
 	//replace your values below:
