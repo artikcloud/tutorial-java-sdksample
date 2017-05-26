@@ -1,7 +1,6 @@
 import cloud.artik.client.*;
 import cloud.artik.client.auth.*;
 import cloud.artik.model.Message;
-import cloud.artik.model.MessageAction;
 import cloud.artik.model.MessageIDEnvelope;
 import cloud.artik.model.NormalizedMessage;
 import cloud.artik.model.NormalizedMessagesEnvelope;
