@@ -1,19 +1,19 @@
 # ARTIK Cloud Java SDK starter code
 
-This sample code sends and gets a message to and from ARTIK Cloud. It uses the [ARTIK Cloud Java/Android SDK](https://github.com/artikcloud/artikcloud-java) to make REST API calls.
+This sample code sends and gets a message to and from ARTIK Cloud using the [ARTIK Cloud Java/Android SDK](https://github.com/artikcloud/artikcloud-java).
 
 ### Prerequisites
 * Java 7,8
-* ARTIK Cloud Java/Android SDK (version 2.0.3)
+* ARTIK Cloud Java/Android SDK (version 2.0.7)
 
 ### Setup / Installation:
 
  1. Sign into [My ARTIK Cloud](https://artik.cloud/)
- 2. On the device dashboard, click to connect a new device. Select the Demo Fire Sensor (from cloud.artik.sample.demofiresensor) and name your sensor SampleFireSensor (or any name you'd like).
- 3. Click the Settings icon of the device you just added. Get the **device ID** and **device token**. If the token does not already exist, click "GENERATE DEVICE TOKEN…" to get one.
- 4. Build ARTIK Cloud Java SDK with Maven or get the SDK jar file from maven central. See the [instructions](https://github.com/artikcloud/artikcloud-java) here. Be sure to use version 2.0.3.
- 4. Add the /src files to your project using your favorite IDE.
- 5. In your Config.java file, replace with your "device id" and "device token" obtained.
+ 2. Connect a new device at "my.artik.cloud".  Select the Demo Fire Sensor (from cloud.artik.sample.demofiresensor) and name your sensor SampleFireSensor (or any name you'd like).
+ 3. Click the Settings icon of the device you just added. Get the **device ID** and **device token**.  Click "Generate Device Token" if needed.
+ 4. To import project with Eclipse:  File -> Import -> Import as Maven Project 
+ 5. Add ARTIK Cloud libraries by running "mvn install".   For manual & detailed installation see the [instructions](https://github.com/artikcloud/artikcloud-java) here.  
+ 5. Add your "Device Id" and "Device Token" to the Config.java file.
 
 ## Run the code
  
@@ -89,11 +89,10 @@ MessagesApi messageApiInstance = new MessagesApi();
 To send a message we instantiate the MessageAction data type which either sends a Message or Action.   We will send a message for this example.   Please note that in our future SDK, we plan to separate MessageAction into two discrete class:  Message and Action.
 
 ```java
-MessageAction data = new MessageAction(); 
+Message data = new Message(); 
 
 //set the device id as the source device and 'message' as the message type.
 data.setSdid(Config.DEVICEID);
-data.setType("message");
 
 // Let's prepare a random temp value to send to our sample sensor
 Map <String, Object> myData = new HashMap<String, Object>();
@@ -103,7 +102,7 @@ data.setData(myData);
 
 // Now lets send our data.   You should receive a message id (mid) in a successful response.
 try {
-    MessageIDEnvelope result = messageApiInstance.sendMessageAction(data);
+    MessageIDEnvelope result = messageApiInstance.sendMessage(data);
     System.out.println(result);
 ```
 
@@ -151,5 +150,5 @@ License and Copyright
 
 Licensed under the Apache License. See [LICENSE](LICENSE).
 
-Copyright (c) 2016 Samsung Electronics Co., Ltd.
+Copyright (c) 2017 Samsung Electronics Co., Ltd.
 

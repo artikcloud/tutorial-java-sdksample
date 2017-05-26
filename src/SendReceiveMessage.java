@@ -1,5 +1,6 @@
 import cloud.artik.client.*;
 import cloud.artik.client.auth.*;
+import cloud.artik.model.Message;
 import cloud.artik.model.MessageAction;
 import cloud.artik.model.MessageIDEnvelope;
 import cloud.artik.model.NormalizedMessage;
@@ -7,21 +8,24 @@ import cloud.artik.model.NormalizedMessagesEnvelope;
 import cloud.artik.api.MessagesApi;
 
 import java.util.*;
-import config.Config;
-
-
 
 /**
- * Sample code below will send and retrieve a message to ARTIKCLOUD.
+ * Sample code below will send and retrieve a message to ARTIKCLOUD
+ * and send a random temperature value to the device.
  * 
- * This sample uses the "Demo Fire Sensor" as the device which you can 
- * add via the ARTIK Cloud dashboard.   A random temperature value wil
- * be sent to the device.
+ * This sample uses the "Demo Fire Sensor" Device Type.
+ * Device Type Id:  dt856e54302a294fba80414b87eb7b79a3
+ * cloud.artik.sample.demofiresensor
  * 
- * Be sure you have filled out your credentials in the Config file which uses
- * a device id / device token to make sample api calls below.
- *
+ * (or create your own Device Type at developer.artik.cloud)
+ * 
+ * Add above device to your account (https://my.artik.cloud)
+ * to retrieve Device Id and Device Token.
+ * 
+ * Enter Device Id and Device Token into the Config.java file.
+ * 
  */
+
 public class SendReceiveMessage {
 	
 	public static void main(String[] args) {
@@ -35,15 +39,12 @@ public class SendReceiveMessage {
         
         // instantiate the MessageAPI to send and receive messages
         MessagesApi messageApiInstance = new MessagesApi();
-        
-        // The ArtikCloud 2.0.3 SDK library needs a MessageAction data type for sending / receiving messages
-        // In upcoming future versions > 2.0.3, this will separate into separate Message and Action classes.
-        MessageAction data = new MessageAction(); // Message | Message object that is passed in the body
+
+        // message object that is passed in the body
+        Message data = new Message(); 
         data.setSdid(Config.DEVICEID);
-        data.setType("message");
-        
- 
-        // Let's prepare a random temp value to send to our sample sensor
+         
+        // prepare a random temp value to send to our demo sensor
         Map <String, Object> myData = new HashMap<String, Object>();
         
         double randomTemperature = Math.floor(Math.random() * 200);
@@ -53,7 +54,7 @@ public class SendReceiveMessage {
        
         // Now lets send our data.   You should receive a message id (mid) in a successful response.
         try {
-            MessageIDEnvelope result = messageApiInstance.sendMessageAction(data);
+            MessageIDEnvelope result = messageApiInstance.sendMessage(data);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MessagesApi#sendMessage");
@@ -63,8 +64,11 @@ public class SendReceiveMessage {
         // Now let's retrieve our data. 
         try {
         	
-        	//synchronous call, or alternatively use .getLastNormalizedMessagesAsync()
-        	//messageApiInstance.getLastNormalizedMessages(count, sdids, fieldPresence)
+        	//synchronous call example
+        	//messageApiInstance.getLastNormalizedMessages(...)
+        	
+        	//async call example
+        	//messageApiInstance.getLastNormalizedMessagesAsync(...)
         	
         	//@param count <int> - max entries to return
         	//@param sdids <string> - containing list of device ids of interest, comma delimited
@@ -85,4 +89,3 @@ public class SendReceiveMessage {
         
     }
 }
-
